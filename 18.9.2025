@@ -1,0 +1,1082 @@
+import tkinter as tk
+from PIL import Image, ImageTk
+from tkinter import PhotoImage
+import math
+from tkinter import messagebox
+
+monsters = {
+    "monster1": {
+        "image":"Vex_JE3.png",
+        "name": "Vexscream",
+        "strength": 1,
+        "speed": 6,
+        "stealth": 21,
+        "cunning": 19,
+        "total": 47
+    },
+    "monster2": {
+        "image": "dawnmirage image (1).png",
+        "name": "Dawnmirage",
+        "strength": 5,
+        "speed": 15,
+        "stealth": 18,
+        "cunning": 22,
+        "total": 60
+    },
+    "monster3": {
+        "image": "blazegolem.png",
+        "name": "Blazegolem",
+        "strength": 15,
+        "speed": 20,
+        "stealth": 23,
+        "cunning": 6,
+        "total": 64
+    },
+    "monster4": {
+       # "image": ""
+        "name": "Moldvine",
+        "strength": 21,
+        "speed": 18,
+        "stealth": 14,
+        "cunning": 5,
+        "total": 58
+    },
+    "monster5": {
+        "image": "vortexwing.png",
+        "name": "Vortexwing",
+        "strength": 19,
+        "speed": 13,
+        "stealth": 19,
+        "cunning": 2,
+        "total": 53
+    },
+    "monster6": {
+        "image": "froststep2.png",
+        "name": "Froststep",
+        "strength": 14,
+        "speed": 14,
+        "stealth": 17,
+        "cunning": 4,
+        "total": 49
+    },
+    "monster7": {
+        "image": "wispghoul.png",
+        "name": "Wispghoul",
+        "strength": 17,
+        "speed": 19,
+        "stealth": 3,
+        "cunning": 2,
+        "total": 41
+    },
+    "monster8": {
+        "image": "",
+        "name": "",
+        "strength": "",
+        "speed": "",
+        "stealth": "",
+        "cunning": "",
+        "total": ""
+    },
+    "monster9": {
+        "image": "",
+        "name": "",
+        "strength": "",
+        "speed": "",
+        "stealth": "",
+        "cunning": "",
+        "total": ""
+    },
+    "monster10": {
+        "image": "",
+        "name": "",
+        "strength": "",
+        "speed": "",
+        "stealth": "",
+        "cunning": "",
+        "total": ""
+    }
+}
+
+global amount
+amount = 7
+
+
+def view_card():
+    print()
+
+def add_card():
+    background.pack_forget()
+    add_card_screen.pack(fill = "both", expand = True)
+
+def sort_cards():
+    background.pack_forget()
+    sort_card_screen.pack(fill = "both", expand = True)
+
+def search_cards():
+    print()
+
+def delete_card():
+    background.pack_forget()
+    delete_card_screen.pack(fill = "both", expand = True)
+
+def back():
+    add_card_screen.pack_forget()
+    background.pack(fill = "both", expand = True)
+        
+def vexscream_back():
+    vexscream_view.pack_forget()
+    background.pack(fill = "both", expand = True)
+
+def dawnmirage_back():
+    dawnmirage_view.pack_forget()
+    background.pack(fill = "both", expand = True)
+
+def blazegolem_back():
+    blazegolem_view.pack_forget()
+    background.pack(fill = "both", expand = True)
+
+def moldvine_back():
+    moldvine_view.pack_forget()
+    background.pack(fill = "both", expand = True)
+
+def vortexwing_back():
+    vortexwing_view.pack_forget()
+    background.pack(fill = "both", expand = True)
+
+def froststep_back():
+    froststep_view.pack_forget()
+    background.pack(fill = "both", expand = True)
+
+def wispghoul_back():
+    wispghoul_view.pack_forget()
+    background.pack(fill = "both", expand = True)
+
+def custon1_back():
+    custom1_view.pack_forget()
+    background.pack(fill = "both", expand = True)
+
+def custon2_back():
+    custom2_view.pack_forget()
+    background.pack(fill = "both", expand = True)
+
+def custon3_back():
+    custom3_view.pack_forget()
+    background.pack(fill = "both", expand = True)
+
+def image1_select():
+    global selected_image
+    selected_image = 1
+
+def image2_select():
+    global selected_image
+    selected_image = 2
+
+def image3_select():
+    global selected_image
+    selected_image = 3
+
+def confirm():
+    name_input.get()
+    strength_input.get()
+    speed_input.get()
+    stealth_input.get()
+    cunning_input.get()
+    confirm_message()
+    with open("monsters.txt", 'a') as monster_file:
+        monster_file.write("")
+        monster_file.write(name_input.get())
+        monster_file.write(strength_input.get())
+        monster_file.write(speed_input.get())
+        monster_file.write(stealth_input.get())
+        monster_file.write(cunning_input.get())
+        add_card_screen.pack_forget()
+
+def confirm_add_card():
+    name_input.get()
+    strength_input.get()
+    speed_input.get()
+    stealth_input.get()
+    cunning_input.get()
+    total_score = int(strength_input.get()) + int(speed_input.get()) + int(stealth_input.get()) + int(cunning_input.get())
+    with open("monsters.txt") as monster_file:
+        print(name_input.get())
+        print("     Strength: ", strength_input.get())
+        print("     Speed: ", speed_input.get())
+        print("     Stealth: ", stealth_input.get())
+        print("     Cunning: ", cunning_input.get())
+        print("     Total score: ", total_score)
+    reset_screen()
+    background.pack(fill = "both", expand = True)
+  
+def value_too_high():
+    messagebox.showerror("Error", "Inputted number must be less than 25.")
+
+def value_too_low():
+    messagebox.showerror("Error", "Inputted number must be greater than 0.")
+
+
+def confirm_message():
+    confirm_input = messagebox.askquestion("Confirm", "Confirm?")
+    if confirm_input == "yes":
+        add_card_screen.pack_forget()
+        background.pack(fill = "both", expand = True)
+        confirm_add_card()
+    elif confirm_input == "no":
+        reset_screen()
+        background.pack(fill = "both", expand = True)
+
+def print_cards():
+    monster_file = 'monsters.txt'
+    with open(monster_file, 'r') as monster_file:
+        file_lines = monster_file.readlines() 
+        print("")
+        for line in file_lines:
+            print(line.strip())
+
+def reset_screen():
+    name_input.delete(0, tk.END)
+    strength_input.delete(0, tk.END)
+    speed_input.delete(0, tk.END)
+    stealth_input.delete(0, tk.END)
+    cunning_input.delete(0, tk.END)
+
+
+def error_flag():
+    messagebox.showerror("Error", "Maximum number of cards has been reached")
+
+def vexscream():
+    background.pack_forget()
+    vexscream_view.pack(fill = "both", expand = True)
+
+def dawnmirage():
+    background.pack_forget()
+    dawnmirage_view.pack(fill = "both", expand = True)
+
+def blazegolem():
+    background.pack_forget()
+    blazegolem_view.pack(fill = "both", expand = True)
+
+def moldvine():
+    background.pack_forget()
+    moldvine_view.pack(fill = "both", expand = True)
+
+def vortexwing():
+    background.pack_forget()
+    vortexwing_view.pack(fill = "both", expand = True)
+
+def froststep():
+    background.pack_forget()
+    froststep_view.pack(fill = "both", expand = True)
+
+def wispghoul():
+    background.pack_forget()
+    wispghoul_view.pack(fill = "both", expand = True)
+
+def custom_1():
+    background.pack_forget()
+    custom2_view.pack(fill = "both", expand = True)
+
+def custom_2():
+    background.pack_forget()
+    custom2_view.pack(fill = "both", expand = True)
+
+def custom_3():
+    background.pack_forget()
+    custom3_view.pack(fill = "both", expand = True)
+
+def close():
+    monster_file = 'monsters.txt'
+    with open(monster_file, 'r') as monster_file:
+        file_lines = monster_file.readlines() 
+        print("")
+        for line in file_lines:
+            print(line.strip())
+    exit()
+
+def vexscream_delete():
+    del monsters["monster1"]
+    messagebox.showinfo("Delete", "Card has been deleted.")
+    vexscream_label.destroy()
+    view_vexscream.destroy()
+
+def dawnmirage_delete():
+    del monsters["monster2"]
+    messagebox.showinfo("Delete", "Card has been deleted.")
+    amount = amount - 1
+
+def blazegolem_delete():
+    del monsters["monster3"]
+    messagebox.showinfo("Delete", "Card has been deleted.")
+    amount = amount - 1
+
+def moldvine_delete():
+    del monsters["monster4"]
+    messagebox.showinfo("Delete", "Card has been deleted.")
+    amount = amount - 1
+
+def vortexwing_delete():
+    del monsters["monster5"]
+    messagebox.showinfo("Delete", "Card has been deleted.")
+    amount = amount - 1
+
+def froststep_delete():
+    del monsters["monster6"]
+    messagebox.showinfo("Delete", "Card has been deleted.")
+    amount = amount - 1
+
+def wispghoul_delete():
+    del monsters["monster7"]
+    messagebox.showinfo("Delete", "Card has been deleted.")
+    amount = amount - 1
+
+def custom1_delete():
+    del monsters["monster8"]
+    messagebox.showinfo("Delete", "Card has been deleted.")
+    amount = amount - 1
+
+def custom2_delete():
+    del monsters["monster9"]
+    messagebox.showinfo("Delete", "Card has been deleted.")
+    amount = amount - 1
+
+def custom3_delete():
+    del monsters["monster10"]
+    messagebox.showinfo("Delete", "Card has been deleted.")
+    amount = amount - 1
+
+def delete_back():
+    delete_card_screen.pack_forget()
+    background.pack(fill = "both", expand = True)
+
+def sort_by_strength():
+
+    vexscream_stat.config(text = 1)
+    vexscream_label.place(x = 100, y= 560)
+    vexscream_stat.place(x = 400, y = 560)
+
+def sort_by_speed():
+    print()
+
+def sort_by_stealth():
+    print()
+
+def sort_by_cunning():
+    print()
+
+def sort_by_total():
+    print()
+
+def sort_back():
+    sort_card_screen.pack_forget()
+    background.pack(fill = "both", expand = True)
+
+
+root = tk.Tk()
+
+root.title("Monster Card Catalogue")
+
+root.geometry("750x900")
+
+background = tk.Frame(root, bg = '#6e52f4', height = 1000, width = 900)
+background.pack()
+background.pack_propagate(False)
+
+add_card_screen = tk.Frame(root, bg = '#6e52f4', height = 1000, width = 900)
+
+vexscream_view = tk.Frame(root, bg = '#6e52f4', height = 1000, width = 900)
+
+dawnmirage_view = tk.Frame(root, bg = '#6e52f4', height = 1000, width = 900)
+
+blazegolem_view = tk.Frame(root, bg = '#6e52f4', height = 1000, width = 900)
+
+moldvine_view = tk.Frame(root, bg = '#6e52f4', height = 1000, width = 900)
+
+vortexwing_view = tk.Frame(root, bg = '#6e52f4', height = 1000, width = 900)
+
+froststep_view = tk.Frame(root, bg = '#6e52f4', height = 1000, width = 900)
+
+wispghoul_view = tk.Frame(root, bg = '#6e52f4', height = 1000, width = 900)
+
+custom1_view = tk.Frame(root, bg = '#6e52f4', height = 1000, width = 900)
+
+custom2_view = tk.Frame(root, bg = '#6e52f4', height = 1000, width = 900)
+
+custom3_view = tk.Frame(root, bg = '#6e52f4', height = 1000, width = 900)
+
+delete_card_screen = tk.Frame(root, bg = '#6e52f4', height = 1000, width = 900)
+
+sort_card_screen = tk.Frame(root, bg = '#6e52f4', height = 1000, width = 900)
+
+main_title = tk.Label(background, text = "Monster Card Catalogue", fg = "white", font = ("impact", 41), bg = '#6e52f4')
+main_title.pack()
+main_title.pack_propagate(False)
+
+white_box = tk.Frame(background, bg = "white", height = 600, width = 650, highlightbackground= "black", highlightthickness = 3)
+white_box.pack()
+white_box.pack_propagate(False)
+
+name_label = tk.Label(white_box, text = "Name: ", bg = "white", font = ("arial", 12))
+name_label.place(x = 75, y = 7)
+name_label.pack_propagate(False)
+
+line = tk.Frame(white_box, height = 1, width = 650, bg = "black")
+line.place(x = 5, y = 35)
+
+vexscream_label = tk.Label(white_box, text = "Vexscream", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+vexscream_label.place(x = 50, y = 50)
+
+dawnmirage_label = tk.Label(white_box, text = "Dawnmirage", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+dawnmirage_label.place(x = 50, y = 100)
+
+blazegolem_label = tk.Label(white_box, text = "Blazegolem", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+blazegolem_label.place(x = 50, y = 150)
+
+moldvine_label = tk.Label(white_box, text = "Moldvine", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+moldvine_label.place(x = 50, y = 200)
+
+vortexwing_label = tk.Label(white_box, text = "Vortexwing", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+vortexwing_label.place(x = 50, y = 250)
+
+froststep_label = tk.Label(white_box, text = "Froststep", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+froststep_label.place(x = 50, y = 300)
+
+wispghoul_label = tk.Label(white_box, text = "Wispghoul", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+wispghoul_label.place(x = 50, y = 350)
+
+empty_label_1 = tk.Label(white_box, text = "(empty)", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+empty_label_1.place(x = 50, y = 400)
+
+empty_label_2 = tk.Label(white_box, text = "(empty)", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+empty_label_2.place(x = 50, y = 450)
+
+empty_label_3 = tk.Label(white_box, text = "(empty)", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+empty_label_3.place(x = 50, y = 500)
+
+view_vexscream = tk.Button(white_box, text = "View", bg = '#5dd2e6', font = ("arial", 12), command = vexscream)
+view_vexscream.place (x = 400, y = 45, height = 25, width = 175)
+
+view_dawnmirage = tk.Button(white_box, text = "View", bg = '#5dd2e6', font = ("arial", 12), command = dawnmirage)
+view_dawnmirage.place (x = 400, y = 95, height = 25, width = 175)
+
+view_blazegolem = tk.Button(white_box, text = "View", bg = '#5dd2e6', font = ("arial", 12), command = blazegolem)
+view_blazegolem.place (x = 400, y = 145, height = 25, width = 175)
+
+view_moldvine = tk.Button(white_box, text = "View", bg = '#5dd2e6', font = ("arial", 12), command = moldvine)
+view_moldvine.place (x = 400, y = 195, height = 25, width = 175)
+
+view_vortexwing = tk.Button(white_box, text = "View", bg = '#5dd2e6', font = ("arial", 12), command = vortexwing)
+view_vortexwing.place (x = 400, y = 245, height = 25, width = 175)
+
+view_froststep = tk.Button(white_box, text = "View", bg = '#5dd2e6', font = ("arial", 12), command = froststep)
+view_froststep.place (x = 400, y = 295, height = 25, width = 175)
+
+view_wispghoul = tk.Button(white_box, text = "View", bg = '#5dd2e6', font = ("arial", 12), command = wispghoul)
+view_wispghoul.place (x = 400, y = 345, height = 25, width = 175)
+
+view_custom1 = tk.Button(white_box, text = "View", bg = '#5dd2e6', font = ("arial", 12), command = custom_1)
+
+view_custom2 = tk.Button(white_box, text = "View", bg = '#5dd2e6', font = ("arial", 12), command = custom_2)
+
+view_custom3 = tk.Button(white_box, text = "View", bg = '#5dd2e6', font = ("arial", 12), command = custom_3)
+
+add_button = tk.Button(background, text = "Add new card", command = add_card, font = ("arial", 12))
+add_button.place(x = 75, y = 700, height = 40, width = 150)
+
+sort_button = tk.Button(background, text = "Sort", command = sort_cards, font = ("arial", 12))
+sort_button.place(x = 500, y = 700, height = 40, width = 150)
+
+search_button = tk.Button(background, text = "Search", command = search_cards, font = ("arial", 12))
+search_button.place(x = 75, y = 760, height = 40, width = 150)
+
+delete_button = tk.Button(background, text = "Delete", command = delete_card, font = ("arial", 12))
+delete_button.place(x = 500, y = 760, height = 40, width = 150)
+
+print_button = tk.Button(background, text = "Print", command = print_cards, font = ("arial", 12))
+print_button.place(x = 75, y = 820, height = 40, width = 150)
+
+exit_button = tk.Button(background, text = "Exit", command = close, font = ("arial", 12))
+exit_button.place(x = 500, y = 820, height = 40, width = 150)
+
+#add card screen
+
+main_title = tk.Label(add_card_screen, text = "Add Card", fg = "white", font = ("impact", 41), bg = '#6e52f4')
+main_title.pack()
+main_title.pack_propagate(False)
+
+white_box = tk.Frame(add_card_screen, bg = "white", height = 600, width = 650, highlightbackground= "black", highlightthickness = 3)
+white_box.pack()
+white_box.pack_propagate(False)
+
+name_display = tk.Label(white_box, text = "Enter name: ", bg = '#5dd2e6', height = 1, width = 20, font = ("Arial", 12))
+name_display.place(x = 225, y = 20)
+
+entry_var = tk.StringVar()
+
+name_input = tk.Entry(white_box, relief = "solid")
+name_input.place(x = 250, y = 50)
+
+strength_display = tk.Label(white_box, text = "Enter strength level: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+strength_display.place(x = 50, y = 140)
+
+strength_input = tk.Entry(white_box, relief = "solid")
+strength_input.place(x = 80, y = 170)
+
+speed_display = tk.Label(white_box, text = "Enter speed level: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+speed_display.place(x = 400, y = 140)
+
+speed_input = tk.Entry(white_box, relief = "solid")
+speed_input.place(x = 430, y = 170)
+
+stealth_display= tk.Label(white_box, text = "Enter stealth level: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+stealth_display.place(x = 50, y = 250)
+
+stealth_input = tk.Entry(white_box, relief = "solid")
+stealth_input.place(x = 80, y = 280)
+
+cunning_display = tk.Label(white_box, text = "Enter cunning level: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+cunning_display.place(x = 400, y = 250)
+
+cunning_input = tk.Entry(white_box, relief = "solid")
+cunning_input.place(x = 430, y = 280)
+
+image_display = tk.Label(white_box, text = "Select image: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+image_display.place(x = 220, y = 350)
+
+image = Image.open("image1.png")
+image = image.resize((125,125), Image.LANCZOS)
+image1 = ImageTk.PhotoImage(image)
+
+label_image = tk.Button(white_box, image = image1, width = 125, height = 125, command = image1_select)
+label_image.place(x = 50, y = 410)
+
+image = Image.open("yippee-happy.gif")
+image = image.resize((125,125), Image.LANCZOS)
+image2 = ImageTk.PhotoImage(image)
+
+label_image = tk.Button(white_box, image = image2, width = 125, height = 125, command = image2_select)
+label_image.place(x = 250, y = 410)
+
+image = Image.open("froststep2.png")
+image = image.resize((140,220), Image.LANCZOS)
+image3 = ImageTk.PhotoImage(image)
+
+label_image = tk.Button(white_box, image = image3, width = 125, height = 125, command = image3_select)
+label_image.place(x = 450, y = 410)
+
+back_button = tk.Button(add_card_screen, text = "Back", command = back, font = ("arial", 12))
+back_button.place(x = 100, y = 760, height = 40, width = 150)
+
+confirm_button = tk.Button(add_card_screen, text = "Confirm", command = confirm, font = ("arial", 12))
+confirm_button.place(x = 500, y = 760, height = 40, width = 150)
+
+#vexscream
+
+main_title = tk.Label(vexscream_view, text = "Vexscream", fg = "white", font = ("impact", 41), bg = '#6e52f4')
+main_title.pack()
+main_title.pack_propagate(False)
+
+white_box2 = tk.Frame(vexscream_view, bg = "white", height = 600, width = 650, highlightbackground= "black", highlightthickness = 3)
+white_box2.pack()
+
+strength_label = tk.Label(white_box2, text = "Strength: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+strength_label.place(x = 50, y = 140)
+
+strength_display = tk.Label(white_box2, text = monsters["monster1"]["strength"], font = ("arial", 12))
+strength_display.place(x = 130, y = 170)
+
+speed_label = tk.Label(white_box2, text = "Speed: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+speed_label.place(x = 50, y = 240)
+
+speed_display = tk.Label(white_box2, text = monsters["monster1"]["speed"], font = ("arial", 12))
+speed_display.place(x = 130, y = 270)
+
+stealth_label = tk.Label(white_box2, text = "Stealth: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+stealth_label.place(x = 50, y = 340)
+
+stealth_display = tk.Label(white_box2, text = monsters["monster1"]["stealth"], font = ("arial", 12))
+stealth_display.place(x = 130, y = 370)
+
+cunning_label = tk.Label(white_box2, text = "Cunning: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+cunning_label.place(x = 50, y = 440)
+
+cunning_display = tk.Label(white_box2, text = monsters["monster1"]["cunning"], font = ("arial", 12))
+cunning_display.place(x = 130, y = 470)
+
+total_label = tk.Label(white_box2, text = "Total score: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+total_label.place(x = 400, y = 440)
+
+total_display = tk.Label(white_box2, text = monsters["monster1"]["total"], font = ("arial", 12))
+total_display.place(x = 480, y = 470)
+
+image = Image.open("Vex_JE3.png")
+image = image.resize((200,200), Image.LANCZOS)
+vexscream_image = ImageTk.PhotoImage(image)
+vexscream_image.image = vexscream_image
+
+vexscream_image = tk.Label(white_box2, image = vexscream_image, height = 250, width = 250)
+vexscream_image.place(x = 350, y = 100)
+
+back_button = tk.Button(vexscream_view, text = "Back", command = vexscream_back, font = ("arial", 12))
+back_button.place(x = 300, y = 760, height = 40, width = 150)
+
+#dawnmirage
+
+main_title = tk.Label(dawnmirage_view, text = "Dawnmirage", fg = "white", font = ("impact", 41), bg = '#6e52f4')
+main_title.pack()
+main_title.pack_propagate(False)
+
+white_box3 = tk.Frame(dawnmirage_view, bg = "white", height = 600, width = 650, highlightbackground= "black", highlightthickness = 3)
+white_box3.pack()
+
+strength_label = tk.Label(white_box3, text = "Strength: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+strength_label.place(x = 50, y = 140)
+
+strength_display = tk.Label(white_box3, text = monsters["monster2"]["strength"], font = ("arial", 12))
+strength_display.place(x = 130, y = 170)
+
+speed_label = tk.Label(white_box3, text = "Speed: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+speed_label.place(x = 50, y = 240)
+
+speed_display = tk.Label(white_box3, text = monsters["monster2"]["speed"], font = ("arial", 12))
+speed_display.place(x = 130, y = 270)
+
+stealth_label = tk.Label(white_box3, text = "Stealth: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+stealth_label.place(x = 50, y = 340)
+
+stealth_display = tk.Label(white_box3, text = monsters["monster2"]["stealth"], font = ("arial", 12))
+stealth_display.place(x = 130, y = 370)
+
+cunning_label = tk.Label(white_box3, text = "Cunning: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+cunning_label.place(x = 50, y = 440)
+
+cunning_display = tk.Label(white_box3, text = monsters["monster2"]["cunning"], font = ("arial", 12))
+cunning_display.place(x = 130, y = 470)
+
+total_label = tk.Label(white_box3, text = "Total score: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+total_label.place(x = 400, y = 440)
+
+total_display = tk.Label(white_box3, text = monsters["monster2"]["total"], font = ("arial", 12))
+total_display.place(x = 480, y = 470)
+
+image = Image.open("dawnmirage image (1).png")
+image = image.resize((125,125), Image.LANCZOS)
+dawnmirage_image = ImageTk.PhotoImage(image)
+
+dawnmirage_image = tk.Label(white_box3, image = dawnmirage_image, height = 250, width = 250)
+dawnmirage_image.place(x = 350, y = 100)
+
+back_button = tk.Button(dawnmirage_view, text = "Back", command = dawnmirage_back, font = ("arial", 12))
+back_button.place(x = 300, y = 760, height = 40, width = 150)
+
+#blazegolem
+
+main_title = tk.Label(blazegolem_view, text = "Blazegolem", fg = "white", font = ("impact", 41), bg = '#6e52f4')
+main_title.pack()
+main_title.pack_propagate(False)
+
+white_box4 = tk.Frame(blazegolem_view, bg = "white", height = 600, width = 650, highlightbackground= "black", highlightthickness = 3)
+white_box4.pack()
+
+strength_label = tk.Label(white_box4, text = "Strength: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+strength_label.place(x = 50, y = 140)
+
+strength_display = tk.Label(white_box4, text = monsters["monster3"]["strength"], font = ("arial", 12))
+strength_display.place(x = 130, y = 170)
+
+speed_label = tk.Label(white_box4, text = "Speed: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+speed_label.place(x = 50, y = 240)
+
+speed_display = tk.Label(white_box4, text = monsters["monster3"]["speed"], font = ("arial", 12))
+speed_display.place(x = 130, y = 270)
+
+stealth_label = tk.Label(white_box4, text = "Stealth: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+stealth_label.place(x = 50, y = 340)
+
+stealth_display = tk.Label(white_box4, text = monsters["monster3"]["stealth"], font = ("arial", 12))
+stealth_display.place(x = 130, y = 370)
+
+cunning_label = tk.Label(white_box4, text = "Cunning: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+cunning_label.place(x = 50, y = 440)
+
+cunning_display = tk.Label(white_box4, text = monsters["monster3"]["cunning"], font = ("arial", 12))
+cunning_display.place(x = 130, y = 470)
+
+total_label = tk.Label(white_box4, text = "Total score: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+total_label.place(x = 400, y = 440)
+
+total_display = tk.Label(white_box4, text = monsters["monster3"]["total"], font = ("arial", 12))
+total_display.place(x = 480, y = 470)
+
+image = Image.open("blazegolem.png")
+image = image.resize((125,125), Image.LANCZOS)
+blazegolem_image = ImageTk.PhotoImage(image)
+
+blazegolem_image = tk.Label(white_box4, image = blazegolem_image, height = 250, width = 250)
+blazegolem_image.place(x = 350, y = 100)
+
+back_button = tk.Button(blazegolem_view, text = "Back", command = blazegolem_back, font = ("arial", 12))
+back_button.place(x = 300, y = 760, height = 40, width = 150)
+
+#moldvine
+
+main_title = tk.Label(moldvine_view, text = "Moldvine", fg = "white", font = ("impact", 41), bg = '#6e52f4')
+main_title.pack()
+main_title.pack_propagate(False)
+
+white_box5 = tk.Frame(moldvine_view, bg = "white", height = 600, width = 650, highlightbackground= "black", highlightthickness = 3)
+white_box5.pack()
+
+strength_label = tk.Label(white_box5, text = "Strength: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+strength_label.place(x = 50, y = 140)
+
+strength_display = tk.Label(white_box5, text = monsters["monster4"]["strength"], font = ("arial", 12))
+strength_display.place(x = 130, y = 170)
+
+speed_label = tk.Label(white_box5, text = "Speed: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+speed_label.place(x = 50, y = 240)
+
+speed_display = tk.Label(white_box5, text = monsters["monster4"]["speed"], font = ("arial", 12))
+speed_display.place(x = 130, y = 270)
+
+stealth_label = tk.Label(white_box5, text = "Stealth: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+stealth_label.place(x = 50, y = 340)
+
+stealth_display = tk.Label(white_box5, text = monsters["monster4"]["stealth"], font = ("arial", 12))
+stealth_display.place(x = 130, y = 370)
+
+cunning_label = tk.Label(white_box5, text = "Cunning: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+cunning_label.place(x = 50, y = 440)
+
+cunning_display = tk.Label(white_box5, text = monsters["monster4"]["cunning"], font = ("arial", 12))
+cunning_display.place(x = 130, y = 470)
+
+total_label = tk.Label(white_box5, text = "Total score: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+total_label.place(x = 400, y = 440)
+
+total_display = tk.Label(white_box5, text = monsters["monster4"]["total"], font = ("arial", 12))
+total_display.place(x = 480, y = 470)
+
+image = Image.open("image1.png")
+image = image.resize((125,125), Image.LANCZOS)
+moldvine_image = ImageTk.PhotoImage(image)
+
+moldvine_image = tk.Label(white_box5, image = moldvine_image, height = 250, width = 250)
+moldvine_image.place(x = 350, y = 100)
+
+back_button = tk.Button(moldvine_view, text = "Back", command = moldvine_back, font = ("arial", 12))
+back_button.place(x = 300, y = 760, height = 40, width = 150)
+
+#vortexwing
+
+main_title = tk.Label(vortexwing_view, text = "Vortexwing", fg = "white", font = ("impact", 41), bg = '#6e52f4')
+main_title.pack()
+main_title.pack_propagate(False)
+
+white_box6 = tk.Frame(vortexwing_view, bg = "white", height = 600, width = 650, highlightbackground= "black", highlightthickness = 3)
+white_box6.pack()
+
+strength_label = tk.Label(white_box6, text = "Strength: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+strength_label.place(x = 50, y = 140)
+
+strength_display = tk.Label(white_box6, text = monsters["monster5"]["strength"], font = ("arial", 12))
+strength_display.place(x = 130, y = 170)
+
+speed_label = tk.Label(white_box6, text = "Speed: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+speed_label.place(x = 50, y = 240)
+
+speed_display = tk.Label(white_box6, text = monsters["monster5"]["speed"], font = ("arial", 12))
+speed_display.place(x = 130, y = 270)
+
+stealth_label = tk.Label(white_box6, text = "Stealth: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+stealth_label.place(x = 50, y = 340)
+
+stealth_display = tk.Label(white_box6, text = monsters["monster5"]["stealth"], font = ("arial", 12))
+stealth_display.place(x = 130, y = 370)
+
+cunning_label = tk.Label(white_box6, text = "Cunning: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+cunning_label.place(x = 50, y = 440)
+
+cunning_display = tk.Label(white_box6, text = monsters["monster5"]["cunning"], font = ("arial", 12))
+cunning_display.place(x = 130, y = 470)
+
+total_label = tk.Label(white_box6, text = "Total score: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+total_label.place(x = 400, y = 440)
+
+total_display = tk.Label(white_box6, text = monsters["monster5"]["total"], font = ("arial", 12))
+total_display.place(x = 480, y = 470)
+
+image = Image.open("vortexwing.png")
+image = image.resize((125,125), Image.LANCZOS)
+vortexwing_image = ImageTk.PhotoImage(image)
+
+vortexwing_image = tk.Label(white_box6, image = vortexwing_image, height = 250, width = 250)
+vortexwing_image.place(x = 350, y = 100)
+
+back_button = tk.Button(vortexwing_view, text = "Back", command = vortexwing_back, font = ("arial", 12))
+back_button.place(x = 300, y = 760, height = 40, width = 150)
+
+#froststep
+
+main_title = tk.Label(froststep_view, text = "Froststep", fg = "white", font = ("impact", 41), bg = '#6e52f4')
+main_title.pack()
+main_title.pack_propagate(False)
+
+white_box7 = tk.Frame(froststep_view, bg = "white", height = 600, width = 650, highlightbackground= "black", highlightthickness = 3)
+white_box7.pack()
+
+strength_label = tk.Label(white_box7, text = "Strength: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+strength_label.place(x = 50, y = 140)
+
+strength_display = tk.Label(white_box7, text = monsters["monster6"]["strength"], font = ("arial", 12))
+strength_display.place(x = 130, y = 170)
+
+speed_label = tk.Label(white_box7, text = "Speed: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+speed_label.place(x = 50, y = 240)
+
+speed_display = tk.Label(white_box7, text = monsters["monster6"]["speed"], font = ("arial", 12))
+speed_display.place(x = 130, y = 270)
+
+stealth_label = tk.Label(white_box7, text = "Stealth: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+stealth_label.place(x = 50, y = 340)
+
+stealth_display = tk.Label(white_box7, text = monsters["monster6"]["stealth"], font = ("arial", 12))
+stealth_display.place(x = 130, y = 370)
+
+cunning_label = tk.Label(white_box7, text = "Cunning: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+cunning_label.place(x = 50, y = 440)
+
+cunning_display = tk.Label(white_box7, text = monsters["monster6"]["cunning"], font = ("arial", 12))
+cunning_display.place(x = 130, y = 470)
+
+total_label = tk.Label(white_box7, text = "Total score: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+total_label.place(x = 400, y = 440)
+
+total_display = tk.Label(white_box7, text = monsters["monster6"]["total"], font = ("arial", 12))
+total_display.place(x = 480, y = 470)
+
+image = Image.open("froststep2.png")
+image = image.resize((125,125), Image.LANCZOS)
+froststep_image = ImageTk.PhotoImage(image)
+
+froststep_image = tk.Label(white_box7, image = froststep_image, height = 250, width = 250)
+froststep_image.place(x = 350, y = 100)
+
+back_button = tk.Button(froststep_view, text = "Back", command = froststep_back, font = ("arial", 12))
+back_button.place(x = 300, y = 760, height = 40, width = 150)
+
+#wispghoul
+
+main_title = tk.Label(wispghoul_view, text = "Vortexwing", fg = "white", font = ("impact", 41), bg = '#6e52f4')
+main_title.pack()
+main_title.pack_propagate(False)
+
+white_box8 = tk.Frame(wispghoul_view, bg = "white", height = 600, width = 650, highlightbackground= "black", highlightthickness = 3)
+white_box8.pack()
+
+strength_label = tk.Label(white_box8, text = "Strength: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+strength_label.place(x = 50, y = 140)
+
+strength_display = tk.Label(white_box8, text = monsters["monster7"]["strength"], font = ("arial", 12))
+strength_display.place(x = 130, y = 170)
+
+speed_label = tk.Label(white_box8, text = "Speed: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+speed_label.place(x = 50, y = 240)
+
+speed_display = tk.Label(white_box8, text = monsters["monster7"]["speed"], font = ("arial", 12))
+speed_display.place(x = 130, y = 270)
+
+stealth_label = tk.Label(white_box8, text = "Stealth: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+stealth_label.place(x = 50, y = 340)
+
+stealth_display = tk.Label(white_box8, text = monsters["monster7"]["stealth"], font = ("arial", 12))
+stealth_display.place(x = 130, y = 370)
+
+cunning_label = tk.Label(white_box8, text = "Cunning: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+cunning_label.place(x = 50, y = 440)
+
+cunning_display = tk.Label(white_box8, text = monsters["monster7"]["cunning"], font = ("arial", 12))
+cunning_display.place(x = 130, y = 470)
+
+total_label = tk.Label(white_box8, text = "Total score: ", bg = '#5dd2e6', height = 1, width = 20, font = ("arial", 12))
+total_label.place(x = 400, y = 440)
+
+total_display = tk.Label(white_box8, text = monsters["monster7"]["total"], font = ("arial", 12))
+total_display.place(x = 480, y = 470)
+
+image = Image.open("wispghoul.png")
+image = image.resize((125,125), Image.LANCZOS)
+wispghoul_image = ImageTk.PhotoImage(image)
+
+wispghoul_image = tk.Label(white_box8, image = wispghoul_image, height = 250, width = 250)
+wispghoul_image.place(x = 350, y = 100)
+
+back_button = tk.Button(wispghoul_view, text = "Back", command = wispghoul_back, font = ("arial", 12))
+back_button.place(x = 300, y = 760, height = 40, width = 150)
+
+#delete card screen
+
+main_title = tk.Label(delete_card_screen, text = "Delete Card", fg = "white", font = ("impact", 41), bg = '#6e52f4')
+main_title.pack()
+main_title.pack_propagate(False)
+
+white_box_delete = tk.Frame(delete_card_screen, bg = "white", height = 600, width = 650, highlightbackground= "black", highlightthickness = 3)
+white_box_delete.pack()
+
+vexscream_label = tk.Label(white_box_delete, text = "Vexscream", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+vexscream_label.place(x = 50, y = 50)
+
+dawnmirage_label = tk.Label(white_box_delete, text = "Dawnmirage", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+dawnmirage_label.place(x = 50, y = 100)
+
+blazegolem_label = tk.Label(white_box_delete, text = "Blazegolem", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+blazegolem_label.place(x = 50, y = 150)
+
+moldvine_label = tk.Label(white_box_delete, text = "Moldvine", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+moldvine_label.place(x = 50, y = 200)
+
+vortexwing_label = tk.Label(white_box_delete, text = "Vortexwing", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+vortexwing_label.place(x = 50, y = 250)
+
+froststep_label = tk.Label(white_box_delete, text = "Froststep", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+froststep_label.place(x = 50, y = 300)
+
+wispghoul_label = tk.Label(white_box_delete, text = "Wispghoul", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+wispghoul_label.place(x = 50, y = 350)
+
+empty_label_1 = tk.Label(white_box_delete, text = "(empty)", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+empty_label_1.place(x = 50, y = 400)
+
+empty_label_2 = tk.Label(white_box_delete, text = "(empty)", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+empty_label_2.place(x = 50, y = 450)
+
+empty_label_3 = tk.Label(white_box_delete, text = "(empty)", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+empty_label_3.place(x = 50, y = 500)
+
+delete_vexscream = tk.Button(white_box_delete, text = "Delete", bg = '#5dd2e6', font = ("arial", 12), command = vexscream_delete)
+delete_vexscream.place (x = 400, y = 45, height = 25, width = 175)
+
+delete_dawnmirage = tk.Button(white_box_delete, text = "Delete", bg = '#5dd2e6', font = ("arial", 12), command = dawnmirage_delete)
+delete_dawnmirage.place (x = 400, y = 95, height = 25, width = 175)
+
+delete_blazegolem = tk.Button(white_box_delete, text = "Delete", bg = '#5dd2e6', font = ("arial", 12), command = blazegolem_delete)
+delete_blazegolem.place (x = 400, y = 145, height = 25, width = 175)
+
+delete_moldvine = tk.Button(white_box_delete, text = "Delete", bg = '#5dd2e6', font = ("arial", 12), command = moldvine_delete)
+delete_moldvine.place (x = 400, y = 195, height = 25, width = 175)
+
+delete_vortexwing = tk.Button(white_box_delete, text = "Delete", bg = '#5dd2e6', font = ("arial", 12), command = vortexwing_delete)
+delete_vortexwing.place (x = 400, y = 245, height = 25, width = 175)
+
+delete_froststep = tk.Button(white_box_delete, text = "Delete", bg = '#5dd2e6', font = ("arial", 12), command = froststep_delete)
+delete_froststep.place (x = 400, y = 295, height = 25, width = 175)
+
+delete_wispghoul = tk.Button(white_box_delete, text = "Delete", bg = '#5dd2e6', font = ("arial", 12), command = wispghoul_delete)
+delete_wispghoul.place (x = 400, y = 345, height = 25, width = 175)
+
+delete_custom1 = tk.Button(white_box_delete, text = "Delete", bg = '#5dd2e6', font = ("arial", 12), command = custom1_delete)
+delete_custom1.place (x = 400, y = 345, height = 25, width = 175)
+
+delete_custom2 = tk.Button(white_box_delete, text = "Delete", bg = '#5dd2e6', font = ("arial", 12), command = custom2_delete)
+delete_custom2.place (x = 400, y = 345, height = 25, width = 175)
+
+delete_custom3 = tk.Button(white_box_delete, text = "Delete", bg = '#5dd2e6', font = ("arial", 12), command = custom3_delete)
+delete_custom3.place (x = 400, y = 345, height = 25, width = 175)
+
+delete_back_button = tk.Button(delete_card_screen, text = "Back", command = delete_back, font = ("arial", 12))
+delete_back_button.place(x = 300, y = 760, height = 40, width = 150)
+
+#sorting screen
+
+main_title = tk.Label(sort_card_screen, text = "Sort Cards", fg = "white", font = ("impact", 41), bg = '#6e52f4')
+main_title.pack()
+main_title.pack_propagate(False)
+
+white_box_sort = tk.Frame(sort_card_screen, bg = "white", height = 600, width = 650, highlightbackground= "black", highlightthickness = 3)
+white_box_sort.pack()
+
+select_sort_label = tk.Label(white_box_sort, text = "Sort by: ", bg = "white", font = ("Arial", 12))
+select_sort_label.place(x = 50, y = 20)
+
+sort_strength = tk.Button(white_box_sort, text = "Strength", bg = "green", font = ("Arial", 12), command = sort_by_strength)
+sort_strength.place(x = 50, y = 50)
+
+sort_speed = tk.Button(white_box_sort, text = "Speed", bg = '#5dd2e6', font = ("Arial", 12), command = sort_by_speed)
+sort_speed.place(x = 150, y = 50)
+
+sort_stealth = tk.Button(white_box_sort, text = "Stealth", bg = '#5dd2e6', font = ("Arial", 12), command = sort_by_stealth)
+sort_stealth.place(x = 250, y = 50)
+
+sort_cunning = tk.Button(white_box_sort, text = "Cunning", bg = '#5dd2e6', font = ("Arial", 12), command = sort_by_cunning)
+sort_cunning.place(x = 350, y = 50)
+
+sort_total = tk.Button(white_box_sort, text = "Total score", bg = '#5dd2e6', font = ("Arial", 12), command = sort_by_total)
+sort_total.place(x = 450, y = 50)
+
+name_label = tk.Label(white_box_sort, text = "Name: ", bg = "white", font = ("arial", 12))
+name_label.place(x = 50, y = 85)
+name_label.pack_propagate(False)
+
+vexscream_label = tk.Label(white_box_sort, text = "Vexscream", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+vexscream_label.place(x = 50, y = 110)
+
+dawnmirage_label = tk.Label(white_box_sort, text = "Dawnmirage", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+dawnmirage_label.place(x = 50, y = 160)
+
+blazegolem_label = tk.Label(white_box_sort, text = "Blazegolem", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+blazegolem_label.place(x = 50, y = 210)
+
+moldvine_label = tk.Label(white_box_sort, text = "Moldvine", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+moldvine_label.place(x = 50, y = 260)
+
+vortexwing_label = tk.Label(white_box_sort, text = "Vortexwing", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+vortexwing_label.place(x = 50, y = 310)
+
+froststep_label = tk.Label(white_box_sort, text = "Froststep", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+froststep_label.place(x = 50, y = 360)
+
+wispghoul_label = tk.Label(white_box_sort, text = "Wispghoul", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+wispghoul_label.place(x = 50, y = 410)
+
+empty_label_1 = tk.Label(white_box_sort, text = "(empty)", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+empty_label_1.place(x = 50, y = 460)
+
+empty_label_2 = tk.Label(white_box_sort, text = "(empty)", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+empty_label_2.place(x = 50, y = 510)
+
+empty_label_3 = tk.Label(white_box_sort, text = "(empty)", bg = '#5dd2e6', font = ("arial", 12), height = 1, width = 20)
+empty_label_3.place(x = 50, y = 560)
+
+vexscream_stat = tk.Label(white_box_sort, text = monsters["monster1"]["strength"], font = ("arial", 12), height = 1, width = 20, bg = '#5dd2e6')
+vexscream_stat.place(x = 400, y = 110)
+
+dawnmirage_stat = tk.Label(white_box_sort, text = monsters["monster2"]["strength"], font = ("arial", 12), height = 1, width = 20, bg = '#5dd2e6')
+dawnmirage_stat.place(x = 400, y = 160)
+
+blazegolem_stat = tk.Label(white_box_sort, text = monsters["monster3"]["strength"], font = ("arial", 12), height = 1, width = 20, bg = '#5dd2e6')
+blazegolem_stat.place(x = 400, y = 210)
+
+moldvine_stat = tk.Label(white_box_sort, text = monsters["monster4"]["strength"], font = ("arial", 12), height = 1, width = 20, bg = '#5dd2e6')
+moldvine_stat.place(x = 400, y = 260)
+
+vortexwing_stat = tk.Label(white_box_sort, text = monsters["monster5"]["strength"], font = ("arial", 12), height = 1, width = 20, bg = '#5dd2e6')
+vortexwing_stat.place(x = 400, y = 310)
+
+froststep_stat = tk.Label(white_box_sort, text = monsters["monster6"]["strength"], font = ("arial", 12), height = 1, width = 20, bg = '#5dd2e6')
+froststep_stat.place(x = 400, y = 360)
+
+wispghoul_stat = tk.Label(white_box_sort, text = monsters["monster7"]["strength"], font = ("arial", 12), height = 1, width = 20, bg = '#5dd2e6')
+wispghoul_stat.place(x = 400, y = 410)
+
+custom1_stat = tk.Label(white_box_sort, text = monsters["monster8"]["strength"], font = ("arial", 12), height = 1, width = 20, bg = '#5dd2e6')
+custom1_stat.place(x = 400, y = 460)
+
+custom2_stat = tk.Label(white_box_sort, text = monsters["monster9"]["strength"], font = ("arial", 12), height = 1, width = 20, bg = '#5dd2e6')
+custom2_stat.place(x = 400, y = 510)
+
+custom3_stat = tk.Label(white_box_sort, text = monsters["monster10"]["strength"], font = ("arial", 12), height = 1, width = 20, bg = '#5dd2e6')
+custom3_stat.place(x = 400, y = 560)
+
+sort_back_button = tk.Button(sort_card_screen, text = "Back", command = sort_back, font = ("arial", 12))
+sort_back_button.place(x = 300, y = 760, height = 40, width = 150)
+
+root.mainloop()
